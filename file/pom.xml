@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zxxwl</groupId>
+        <artifactId>zx-service-api</artifactId>
+        <version>1.0.0-20230101</version>
+    </parent>
+
+    <groupId>com.zxxwl.file</groupId>
+    <artifactId>xiaoxin-file</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.zxxwl.common</groupId>
+            <artifactId>xiaoxin-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.75</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zxxwl.login</groupId>
+            <artifactId>xiaoxin-login</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- JAR：常规可执行 JAR 布局。-->
+                    <!-- WAR：可执行的 WAR 布局。 放置依赖项是为了避免在 servlet 容器中部署时发生任何冲突。providedWEB-INF/lib-providedwar-->
+                    <!-- ZIP（别名 to）：类似于使用 .DIRJARPropertiesLauncher-->
+                    <!-- NONE：捆绑所有依赖项和项目资源。不捆绑引导加载程序。-->
+                    <layout>NONE</layout>
+                    <!-- 可执行jar 控制是否跳过执行 Spring Boot Maven 插件。默认情况下，该值为 false，即不跳过执行插件。如果将其设置为 true，则插件将被跳过，不会构建可执行 JAR-->
+                    <skip>true</skip>
+                    <!-- 排除Devtools -->
+                    <excludeDevtools>true</excludeDevtools>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.ly.smart-doc</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
+                    <configFile>./src/main/resources/smart-doc.json</configFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

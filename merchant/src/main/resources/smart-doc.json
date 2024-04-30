@@ -1,0 +1,19 @@
+{
+  //  "outPath": "F:/CpWorkspace/ForSoftware/torna",
+  "packageFilters": "",
+  // 配置自己的项目名称
+  "projectName": "xiaoxin-service-merchant",
+  // torna平台appToken,@since 2.0.9
+  "appToken": "xxxxxxx",
+  // torna平台地址，填写自己的私有化部署地址@since 2.0.9
+  "openUrl": "http://xxx.xxx.x.249:30011/api",
+//  "openUrl": "http://torna-tools.web.zxxwl.com/api",
+  // torna测试环境
+  "debugEnvName": "接口文档环境",
+  // 推送torna时替换旧的文档
+  "replace": true,
+  // torna
+  "debugEnvUrl": "http://ip:port",
+  //基于highlight.js的代码高设置,可选值很多可查看码云wiki，喜欢配色统一简洁的同学可以不设置
+  "style": "xt256"
+}

@@ -1,0 +1,11 @@
+#logging:
+#  level:
+#    # mybatis-plus 日志
+#    com.baomidou.example.mapper: info
+#    com.zxxwl.api: debug
+#    com.zxxwl.*: debug
+
+# 自定义参数
+custom:
+  common-web:
+    module-name: default

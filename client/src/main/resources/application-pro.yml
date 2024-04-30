@@ -1,0 +1,31 @@
+server:
+  port: 8181
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://121.5.155.164:30020/zxxwl?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=utf-8&useUnicode=true
+    username: root
+    password: 'YkBqDwD&4JQrAv&4'
+    dbcp2:
+      max-idle: 5
+      max-wait-millis: 2000
+      min-idle: 0
+  data:
+    redis:
+      host: 121.5.155.164
+      password: '592pW4pZpD2jRL&H'
+      database: 2
+      port: 49155
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+file:
+  path: /home/java
+  magick:
+# 自定义参数
+custom:
+  pay-notify-url:
+    order: "https://xxxxxx/order/pay/notify"

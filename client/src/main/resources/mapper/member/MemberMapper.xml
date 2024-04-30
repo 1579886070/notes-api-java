@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxxwl.api.member.mapper.MemberMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zxxwl.api.member.entity.Member">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="phone" property="phone" />
+        <result column="face_url" property="faceUrl" />
+        <result column="style_bg_url" property="styleBgUrl" />
+        <result column="sex" property="sex" />
+        <result column="birth" property="birth" />
+        <result column="real_name" property="realName" />
+        <result column="forbid_status" property="forbidStatus" />
+        <result column="register_time" property="registerTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account, password, nickname, phone, face_url, style_bg_url, sex, birth, real_name, forbid_status, register_time, update_time
+    </sql>
+
+</mapper>

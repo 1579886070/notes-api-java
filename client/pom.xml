@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zxxwl</groupId>
+        <artifactId>zx-service-api</artifactId>
+        <version>1.0.0-20230101</version>
+    </parent>
+
+    <groupId>com.zxxwl</groupId>
+    <artifactId>xiaoxin-service-client</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>xiaoxin-service-client</name>
+    <description>client</description>
+
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zxxwl.common</groupId>
+            <artifactId>xiaoxin-common</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zxxwl</groupId>
+            <artifactId>xiaoxin-common-web</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zxxwl.login</groupId>
+            <artifactId>xiaoxin-login</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.zxxwl.maps</groupId>-->
+<!--            <artifactId>xiaoxin-maps</artifactId>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.zxxwl.file</groupId>
+            <artifactId>xiaoxin-file</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- JAR：常规可执行 JAR 布局。-->
+                    <!-- WAR：可执行的 WAR 布局。 放置依赖项是为了避免在 servlet 容器中部署时发生任何冲突。providedWEB-INF/lib-providedwar-->
+                    <!-- ZIP（别名 to）：类似于使用 .DIRJARPropertiesLauncher-->
+                    <!-- NONE：捆绑所有依赖项和项目资源。不捆绑引导加载程序。-->
+                    <layout>JAR</layout>
+                    <!-- 可执行jar 控制是否跳过执行 Spring Boot Maven 插件。默认情况下，该值为 false，即不跳过执行插件。如果将其设置为 true，则插件将被跳过，不会构建可执行 JAR-->
+                    <skip>false</skip>
+                    <!-- 排除Devtools -->
+                    <excludeDevtools>true</excludeDevtools>
+                    <!-- 用于指定构建可执行 JAR 时的分类器。默认情况下，该值为 exec，表示生成的 JAR 文件带有 exec 后缀。这样可以与原始的项目 JAR 文件进行区分-->
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+            <plugin>
+                    <groupId>com.ly.smart-doc</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
+                    <configFile>./src/main/resources/smart-doc.json</configFile>
+                    <!--指定项目名称-->
+                    <projectName>${project.name}</projectName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxxwl.web.core.db.BaseMapper">
+    <select id="paginationQuery" resultType="java.util.HashMap">
+        SELECT
+        <choose>
+            <when test="columns != null">
+                ${columns}
+            </when>
+            <when test="tables != null">
+                <foreach collection="tables" index="idx" item="table" separator=",">
+                    <choose>
+                        <when test="table.alias != null">
+                            ${table.alias}.*
+                        </when>
+                        <otherwise>
+                            ${table.name}.*
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM
+        <if test="tables != null">
+            <foreach collection="tables" index="idx" item="table" separator=",">
+                <choose>
+                    <when test="table.alias != null">
+                        ${table.name} AS ${table.alias}
+                    </when>
+                    <otherwise>
+                        ${table.name}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </if>
+        <if test="joins != null">
+            <foreach collection="joins" index="idx" item="table" separator=" ">
+                <if test="table.method != null">${table.method}</if>
+                JOIN ${table.name} AS ${table.alias}
+                ON ${table.cond}
+            </foreach>
+        </if>
+
+        <if test="params != null">
+            WHERE <![CDATA[${params}]]>
+        </if>
+
+        <if test="groupBy != null">
+            GROUP BY <![CDATA[${groupBy}]]>
+        </if>
+        <if test="having != null">
+            HAVING <![CDATA[${having}]]>
+        </if>
+        <if test="orderBy != null">
+            ORDER BY <![CDATA[${orderBy}]]>
+        </if>
+        <if test="size gt 0 and size lt 1000">
+            LIMIT #{size} offset #{offset}
+        </if>
+    </select>
+
+    <insert id="copy" parameterType="long" useGeneratedKeys="false">
+        INSERT INTO ${table}_${lang}
+        SELECT *
+        FROM ${table}
+        WHERE ID = #{id}
+    </insert>
+
+    <insert id="rcopy" parameterType="long" useGeneratedKeys="false">
+        INSERT INTO ${table}
+        SELECT *
+        FROM ${table}_${lang}
+        WHERE ID = #{id}
+    </insert>
+</mapper>

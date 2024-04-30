@@ -1,0 +1,35 @@
+server:
+  port: 8282
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:32491/cp_service?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=utf-8&useUnicode=true
+    username: root
+    password: '123456'
+    dbcp2:
+      max-idle: 5
+      max-wait-millis: 2000
+      min-idle: 0
+  data:
+    redis:
+      host: 127.0.0.1
+      password: '123456'
+      database: 2
+      port: 31074
+#  devtools:
+    # 自动重启
+#    restart:
+#      enabled: false
+#    livereload:
+#      enabled: true
+
+#file:
+#    path: E:\\java\\image
+#    magick: C:\\ImageMagick-6.9.3-7-vc14-x64\\bin
+logging:
+  level:
+    root: debug
+  # mybatis-plus 日志
+#    com.baomidou.example.mapper: info
+#    com.zxxwl.**: debug

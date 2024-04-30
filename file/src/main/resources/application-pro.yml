@@ -1,0 +1,27 @@
+server:
+    port: 8181
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url:
+        username:
+        password:
+        dbcp2:
+            max-idle: 5
+            max-wait-millis: 2000
+            min-idle: 0
+    data:
+      redis:
+        host:
+        password:
+        database: 2
+        port:
+
+mybatis-plus:
+    configuration:
+        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+file:
+    path: /home/java
+    magick:

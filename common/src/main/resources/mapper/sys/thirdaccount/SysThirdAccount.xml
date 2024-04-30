@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxxwl.common.api.sys.thirdaccount.mapper.SysThirdAccountMapper">
+    <resultMap id="queryByDataId_MAP" type="com.zxxwl.common.api.sys.thirdaccount.entity.dto.SysThirdAccountDto">
+        <id property="id" column="id"/>
+        <result property="dataId" column="data_id"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+    </resultMap>
+    <insert id="add" parameterType="com.zxxwl.common.api.sys.thirdaccount.entity.SysThirdAccount">
+        INSERT INTO sys_third_account(id, data_id, content, type, category, expires_time, app_name, brief, df,
+                                      create_time, update_time)
+            VALUE (#{data.id},
+                   #{data.dataId},
+                   #{data.content},
+                   #{data.type},
+                   #{data.category},
+                   #{data.expiresTime},
+                   #{data.appName},
+                   #{data.brief},
+                   #{data.df},
+                   #{data.createTime},
+                   #{data.updateTime}
+            )
+    </insert>
+    <select id="queryByDataId" resultMap="queryByDataId_MAP">
+        SELECT id, data_id, content, type
+        FROM sys_third_account
+        WHERE df = 0
+          AND data_id = #{dataId}
+    </select>
+    <resultMap id="queryJsonContentByDataId_MAP" type="java.util.Map">
+        <result property="content" column="content" typeHandler="com.zxxwl.config.mybatis.JsonNodeTypeHandler"/>
+    </resultMap>
+    <select id="queryJsonContentByDataId" resultMap="queryJsonContentByDataId_MAP">
+        SELECT content
+        FROM sys_third_account
+        WHERE df = 0
+          AND data_id = #{dataId}
+          AND type = 'Json'
+    </select>
+</mapper>

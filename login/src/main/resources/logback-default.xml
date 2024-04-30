@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+scan:
+当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod:
+设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug:
+当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+例如：
+ -->
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <!-- 输出文件路径 -->
+    <property name="LOG_PATH" value="logs/login"/>
+    <springProfile name="pro">
+        <!-- 正式环境配置 -->
+        <property name="LOG_PATH" value="logs"/>
+    </springProfile>
+    <property name="LOG_HISTORY_PATH" value="${LOG_PATH}/history" />
+
+    <!-- 文件输出格式 -->
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%-5level：级别从左显示5个字符宽度，%t表示线程名，%msg：日志消息，%n是换行符-->
+            <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %magenta(${PID:-}) --- [%t] %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- info级别日志文件输出 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件输出的文件名 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 每日生成日志文件或日志文件大小超出限制后输出的文件名模板 -->
+            <fileNamePattern>${LOG_PATH}/all/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件最大大小：100MB -->
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${PID:-} --- [%t] %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- error级别日志文件输出 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志输出级别，优先级 > '<root level>' -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/error/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${PID:-} --- [%t] %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ALL_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--        <File>${LOG_HISTORY_PATH}/project-id-execution-detail-info.log</File>-->
+        <!-- 日志输出级别，优先级 > '<root level>' -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HISTORY_PATH}/ex-detail-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${PID:-} --- [%t] %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 默认日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="INFO_FILE" />
+        <appender-ref ref="ERROR_FILE" />
+        <!-- <appender-ref ref="ALL_INFO" />-->
+    </root>
+    <!-- 为了防止进程退出时，内存中的数据丢失 -->
+    <shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook"/>
+    <!--  版本 https://logback.qos.ch/codes.html#layoutInsteadOfEncoder  -->
+    <!--  版本 https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy -->
+</configuration>
