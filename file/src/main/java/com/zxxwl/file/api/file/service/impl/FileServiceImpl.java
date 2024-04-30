@@ -9,6 +9,7 @@ import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.region.Region;
 import com.zxxwl.common.api.file.entity.TransFileVO;
 import com.zxxwl.common.constants.ALYConstants;
+import com.zxxwl.common.constants.TxConstants;
 import com.zxxwl.common.random.IdUtils;
 import com.zxxwl.common.utils.file.ALiOssUtils;
 import com.zxxwl.common.utils.file.FileUtils;
@@ -420,9 +421,9 @@ public class FileServiceImpl implements FileService {
     }
 
     private TransFileVO saveFileTx(MultipartFile file, String newFileName, String savePathName, String suffix, String contentType) {
-        String secretId = "AKIDj9WxWCDOj6jmqxDqdSD2sk69Dg4Uzleq";
-        String secretKey = "LqOf3HlSXguKDBKXj6fDkIxlEunjnkZG";
-        String bucketName = "resource-1252475870";
+        String secretId = TxConstants.OSS_ACCESS_KEY;
+        String secretKey = TxConstants.OSS_ACCESS_SECRET;
+        String bucketName = TxConstants.OSS_STATIC_POSITION;
         String region = "ap-nanjing";
 
         COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
@@ -443,7 +444,7 @@ public class FileServiceImpl implements FileService {
             // 关闭cos客户端
             cosClient.shutdown();
         }
-        String url = "https://oss.xiaoxinyes.club/" + savePathName;
+        String url = TxConstants.OSS_STATIC_MAIN_LINK + savePathName;
 
         String fileId = this.insertInfo(file.getOriginalFilename(), file.getSize(), url, newFileName, suffix, contentType);
         // 记录 url,fileId
