@@ -125,7 +125,8 @@ public class Response {
     public Response message(String info) {
         String coded = URLEncoder.encode(info, Charset.defaultCharset());
         this.builder.header("x-api-message", Base64.getEncoder().encodeToString(coded.getBytes()));
-        return this;
+
+        return this.isAPIResponse("deny");
     }
 
     public Response content(JSONObject data) {

@@ -51,9 +51,9 @@ public class MemberServiceImpl extends BaseServiceImpl<MemberMapper, Member> imp
         }
 
         // 将获取的账号+password 拼接，sha256编码 匹配数据库的密码
-        String encryptPassword = Hash.build(SysConstants.SAFETY_VAL + account + password, "SHA-256");
+        String encryptPassword = Hash.build(SysConstants.SAFETY_VAL + password, "SHA-256");
 
-        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+            QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Member::getAccount, account).eq(Member::getPassword, encryptPassword);
 
         Member member = this.baseMapper.selectOne(queryWrapper);
@@ -69,7 +69,7 @@ public class MemberServiceImpl extends BaseServiceImpl<MemberMapper, Member> imp
     }
 
     public static void main(String[] args) {
-        System.out.println(Hash.build(SysConstants.SAFETY_VAL + "root" + "zhouxin1218..", "SHA-256"));
+        System.out.println(Hash.build(SysConstants.SAFETY_VAL + "zhouxin1218..", "SHA-256"));
     }
 
     public String updateToken(String memberId) {

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxxwl.SessionContext;
 import com.zxxwl.common.annotation.HeaderTokenCheck;
+import com.zxxwl.common.annotation.SafetyTokenCheck;
 import com.zxxwl.common.constants.SysConstants;
 import com.zxxwl.common.utils.jwt.JwtUtilV2;
 import com.zxxwl.common.utils.sys.SysHttpRequestUtil;
@@ -63,7 +64,7 @@ public abstract class BaseController<S extends BaseService<?>> {
      * @apiNote id||query
      * @apiNote $eq, $exp, $exists, $nexists, $neq, $lte, $lt, $gte, $gt, $null, $regex, $nregex, $btw, $nbtw, $in, $nin, $and, $or
      */
-    @HeaderTokenCheck
+    @SafetyTokenCheck
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
             value = {
                     "/index", "/"
@@ -86,6 +87,7 @@ public abstract class BaseController<S extends BaseService<?>> {
      * @return R
      */
     @HeaderTokenCheck
+    @SafetyTokenCheck
     @RequestMapping(method = {RequestMethod.POST},
             value = "/add")
     public ResponseEntity<?> add() {
@@ -128,6 +130,7 @@ public abstract class BaseController<S extends BaseService<?>> {
      * @return R
      * @apiNote id||uuid
      */
+    @SafetyTokenCheck
     @HeaderTokenCheck
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT},
             value = "/update")
@@ -169,6 +172,7 @@ public abstract class BaseController<S extends BaseService<?>> {
      * @return R
      * @apiNote status(int 0, 1)||df (boolean true,false)
      */
+    @SafetyTokenCheck
     @HeaderTokenCheck
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT},
             value = "/status")
@@ -209,6 +213,7 @@ public abstract class BaseController<S extends BaseService<?>> {
      * @return Request
      * @deprecated 不需要调用
      */
+
     @Deprecated
     protected Request getRequest() {
         return request;
